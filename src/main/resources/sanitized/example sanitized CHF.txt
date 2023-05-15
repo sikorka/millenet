@@ -1,0 +1,49 @@
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2020-04-01
+2020-04-01
+300,00 CHF
+SPŁ.RATY-REGULARNA
+KAPITAŁ ODSETKI 50.00 ODSETKI PRZETERMINOWANE 5.00 KWOTA RATY (KAPITAŁ + ODSETKI) 350.00 SPŁATA RATY KREDYTU
+
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2020-04-01
+2020-04-01
+0,00 CHF
+SP.RATY-NIEREGULARNA
+ODSETKI 30.00 SPŁATA RATY KREDYTU
+
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2020-05-01
+2020-05-01
+250,00 CHF
+SPŁ.RATY-REGULARNA
+KAPITAŁ ODSETKI 50.00 KWOTA RATY (KAPITAŁ + ODSETKI) 300.00 SPŁATA RATY KREDYTU
+
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2020-10-01
+2020-10-01
+20,00 CHF
+SPŁ.RATY-REGULARNA
+KAPITAŁ SPŁATA RATY KREDYTU
+
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2020-01-01
+2020-01-01
+20,00 CHF
+SPŁ.RATY-REGULARNA
+KAPITAŁ ODSETKI PRZETERMINOWANE 0.50 SPŁATA RATY KREDYTU
+
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2012-11-01
+2012-11-01
+0,50 CHF
+SPŁ.RATY-REGULARNA
+KAPITAŁ Spłata raty w PLN20-12345678
+
+

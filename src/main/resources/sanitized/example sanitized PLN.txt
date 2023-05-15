@@ -1,0 +1,39 @@
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2006-08-01
+2006-08-01
+0,00 CHF
+SPŁ.RATY-REGULARNA
+ODSETKI 100.00 PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN300.00
+
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2008-09-01
+2008-09-01
+200,00 CHF
+SPŁ.RATY-REGULARNA
+KAPITAŁ ODSETKI 100.00 KWOTA RATY (KAPITAŁ + ODSETKI) 300.00 PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN1200.00
+
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2009-01-01
+2009-01-01
+100,00 CHF
+SPŁ.RATY-REGULARNA
+KAPITAŁ ODSETKI PRZETERMINOWANE 1.00 PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN404.00
+
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2010-07-01
+2010-07-01
+300,00 CHF
+SPŁ.RATY-REGULARNA
+KAPITAŁ ODSETKI 100.00 ODSETKI PRZETERMINOWANE 1.00 KWOTA RATY (KAPITAŁ + ODSETKI) 400.00 PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN1604.00
+
+Potwierdzenie wykonania operacji
+Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+2010-07-02
+2010-07-02
+4,00 CHF
+SPŁ.RATY-REGULARNA
+KAPITAŁ PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN12.00
