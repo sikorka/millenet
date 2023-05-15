@@ -7,8 +7,7 @@ import static com.github.sikorka.util.TextHelper.*;
 
 @Getter @Setter
 public class CreditOperation {
-    public static final String HEADER = "Data transakcji;Data waluty;Kwota transakcji;Waluta transakcji;Data transakcji;Typ transakcji;" +
-            "Tytuł operacji;CHF kwota odsetki;CHF kwota odsetki przeterminowane;PLN kwota;";
+    public static final String HEADER = "Data transakcji;Data waluty;Kwota transakcji;Waluta transakcji;Data transakcji;Typ transakcji;Tytuł operacji;CHF kwota odsetki;CHF kwota odsetki przeterminowane;PLN kwota;";
 
     String transactionDate;
     String currencyDate;
@@ -17,6 +16,7 @@ public class CreditOperation {
     String transactionType;
     String operationTitle;
 
+    //this whole shabang is for these three:
     String chfKwotaOdsetki = "";
     String chfKwotaOdsetkiPrzeterminowane = "";
     String plnKwota = "";

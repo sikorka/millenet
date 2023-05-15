@@ -75,6 +75,6 @@ public class CreditHistoryListener extends CreditHistoryMillenetBaseListener {
 
     @Override
     public void exitCredit(CreditHistoryMillenetParser.CreditContext ctx) {
-        log.info("Processing done.");
+        log.info("🟢 Processing done.");
     }
 }

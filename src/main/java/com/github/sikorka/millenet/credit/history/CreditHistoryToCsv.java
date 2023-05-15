@@ -45,7 +45,7 @@ public class CreditHistoryToCsv {
 
         Credit credit = getCreditHistories(directoryUnderResources);
 
-        log.info("Printing CSV...");
+        log.info("Printing CSV with credit operations...");
         System.out.println(LONG_EQUALS);
         System.out.print(credit.toCsv()); //boom, gotya!
         System.out.println(LONG_EQUALS);
