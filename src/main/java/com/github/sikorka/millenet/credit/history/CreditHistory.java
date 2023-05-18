@@ -1,7 +1,10 @@
 package com.github.sikorka.millenet.credit.history;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import lombok.Getter;
 
+import static com.github.sikorka.millenet.credit.history.CreditOperation.*;
+import static com.github.sikorka.util.CsvHelper.*;
 import static com.github.sikorka.util.TextHelper.*;
 
 import java.util.ArrayList;
@@ -17,20 +20,32 @@ public class CreditHistory {
         this.fileName = fileName;
     }
 
-    String toCsv() {
+    String toCsvRows() {
         StringBuilder builder = new StringBuilder();
 
-        for (CreditOperation o : operations) {
-            builder.append(o.toCsv())
-                    .append(fileName).append(CSV_SEPARATOR)
+        for (CreditOperation operation : operations) {
+            builder.append(operation.toCsvRow()).append(CSV_DELIMITER)
+                    .append(fileName).append(CSV_DELIMITER)
                     .append(NEWLINE);
         }
 
         return builder.toString();
     }
 
+    String toCsvRowsWithHeader() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(CSV_HEADER).append(CSV_DELIMITER)
+//                .append(NAZWA_PLIKU_9).append(CSV_DELIMITER)
+                .append(NEWLINE);
+
+        builder.append(toCsvRows());
+
+        return builder.toString();
+    }
+
     @Override
     public String toString() {
-        return fileName + NEWLINE + NEWLINE + toCsv();
+        return fileName + NEWLINE + NEWLINE + toCsvRows();
     }
 }

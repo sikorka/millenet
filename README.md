@@ -4,19 +4,39 @@ What this does
     Given PDF files with Millenium Bank's CHF Credit Operations History 
     When they are copy-pasted into TXT files 
     And sanitized 
-    When CreditParserToCsvFormatter is run 
+    When CreditHistoryToCsv is run 
     Then a CSV file is printed with payed values extracted from PDFs 
-    And the values are all fields from PDF 
+    And the values are all fields from PDF, including Kwota transakcji in CHF 
     And the values contain CHF odsetki, CHF odsetki przeterminowane and PLN kwota from Operation title field 
 
 With this CSV file you can easier calculate how much you payed the bank - just import to excel / google docs, check if everything is fine and run your calculations. 
 
+How
+---
+
+The Credit History Operation read from file `example sanitized.txt`: 
+
+    Potwierdzenie wykonania operacji
+    Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
+    2010-07-01
+    2010-07-02
+    300,00 CHF
+    SPŁ.RATY-REGULARNA
+    KAPITAŁ ODSETKI 100.00 ODSETKI PRZETERMINOWANE 1.00 KWOTA RATY (KAPITAŁ + ODSETKI) 400.00 PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN1604.00
+
+becomes a CSV record:
+
+    Data transakcji;Data waluty;Kwota transakcji;Waluta transakcji;Typ transakcji;Tytuł operacji;CHF kwota odsetki;CHF kwota odsetki przeterminowane;PLN kwota;Nazwa pliku;
+    2010-07-01;2010-07-02;300,00;CHF;SPŁ.RATY-REGULARNA;KAPITAŁ ODSETKI 100.00 ODSETKI PRZETERMINOWANE 1.00 KWOTA RATY (KAPITAŁ + ODSETKI) 400.00 PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN1604.00;100.00;1.00;1604.00;example sanitized.txt;
+
+For a set of Credit Operation History files from various years, with hundreds of operations each, you'll get a CSV combining all of their operations. 
+
 Info
 ----
 
-In the Credit Operations History, what you actually payed is not in **Kwota transakcji** (Transaction amount) but in **Tytul operacji** (Operation title). Credit history is the only source of the full information (even account history does not state **Odsetki przeterminowane** explicitly). Also you can download account history for only 3 years, so that does not help. 
+In the Credit Operations History, what you actually payed is not in **Kwota transakcji** (Transaction amount) but in **Tytul operacji** (Operation title). Credit history is the only source of the full information (even account history does not state **Odsetki przeterminowane** explicitly). Also you can download account history for only 3 years, so that does not help, but Credit History you can download for all years. 
 
-In Zaswiadczenie o Odsetkach document, which can be downloaded for all years, there is amount in PLN for what is in Credit Operations History under operation title "KAPITAŁ POTR.". You can merge that information manually. Otherwise it is reasonable to use Kurs Sredni NBP to calculate that value. 
+In Zaswiadczenie o Odsetkach document, which can be downloaded also for all years, there is amount in PLN for what is in Credit Operations History under operation title "KAPITAŁ POTR.". You can merge that information manually. Otherwise it is reasonable to use Kurs Sredni NBP to calculate that value. 
 
 How to
 ======
@@ -24,7 +44,7 @@ How to
 PDF
 ---
 
-Log in to millenium.pl, go under your credit, and download all PDF files of Credit History (not account). They are  available for the whole credit history since beginning. Save them under [/pdf](src/main/resources/pdf). 
+Log in to millenium.pl, go under your credit, and download all PDF files of Credit History (not account). They are available for the whole credit history since beginning. Save them under [/pdf](src/main/resources/pdf). 
 
 TXT
 ---
