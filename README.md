@@ -3,13 +3,13 @@ For english click [here](README_EN.md).
 Co robi program
 ===============
 
-Czy wiesz ile zapłaciłeś/aś bankowi Millenium za swój kredyt w CHF? Ten program generuje plik CSV z wszystkimi operacjami z Historii Operacji, z kwotami za odsetki, opłaty, spłaty.
+Czy wiesz ile już zapłaciłeś/aś Bankowi Millenium za swój kredyt w CHF? Ten program generuje plik CSV z wszystkimi operacjami z Historii Operacji Kredytu, z kwotami za odsetki, opłaty, spłaty.
 
     Mając pliki PDF z Historią Operacji Kredytu CHF w Banku Millenium 
-    Jak zapuścisz ten program
-    To będzie wygenerowany plik CSVy, zawierający wartości płatności wyekstrachowanych z PDFow
+    Kiedy zapuścisz ten program
+    To wygeneruje się plik CSV, zawierający wartości płatności wyekstrachowanych z PDFów
     I te wartości to wszystkie pola z PDFa, włączając w to Kwotę transakcji w CHF
-    Oraz Odsetki w CHF, Odsetki przeterminowane w CHF i kwotę w PLN z pola Tytuł operacji
+    Oraz Odsetki w CHF, Odsetki przeterminowane w CHF i Kwotę PLN z pola Tytuł operacji
 
 Mając takie dane możesz policzyć ile zapłaciłeś/aś bankowi - importujesz CSV do excela / google docs, sprawdzasz czy wszystko jest w porzadku i wykonujesz swoje obliczenia.
 
@@ -70,5 +70,5 @@ Plik CSV bedzie zachowany jako `credit.csv`.
 
 Powodzenia!
 
-Jeśli pojawią się jakies blędy, to nie znaczy od razu, że plik CSV jest niepoprawny. Powinieneś/naś manualnie sprawdzic czy wygenerowane operacje sa takie jak powinny być. Błędy mogą się pojawić jeśli są dwie spacje tam gdzie nie powinny albo bank wprowadził nowy format lub nowy Tytuł operacji. Możesz je wysłać do autorki, po to by usprawnić ten program, a w miedzy czasie dodaj je manualnie do CSVki. 
+Jeśli pojawią się jakieś blędy, to nie znaczy od razu, że plik CSV jest niepoprawny. Błędy mogą się pojawić jeśli są dwie spacje tam gdzie nie powinny albo bank wprowadził nowy format lub nowy Tytuł operacji. Powinieneś/naś manualnie sprawdzic czy wygenerowane operacje sa takie jak powinny być. Możesz je wysłać do autorki, po to by usprawnić ten program, a w miedzy czasie sprawdź je i jeśli trzeba dodaj manualnie do CSVki. 
 
