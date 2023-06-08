@@ -3,7 +3,6 @@ package com.github.sikorka.millenet.credit.history;
 import com.github.sikorka.millenet.credit.history.grammar.CreditHistoryListener;
 import com.github.sikorka.millenet.credit.history.grammar.CreditHistoryMillenetLexer;
 import com.github.sikorka.millenet.credit.history.grammar.CreditHistoryMillenetParser;
-import com.github.sikorka.util.ResourceFileReader;
 import lombok.extern.log4j.Log4j;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -12,30 +11,74 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
+
+import static com.github.sikorka.util.FilesAndPaths.*;
+import static com.github.sikorka.util.ResourceFileReaderWriter.*;
 
 @Log4j
 public class CreditHistoryParserReader {
 
-    public static Credit getCreditHistories(String directoryUnderResources) throws URISyntaxException, IOException {
+    public static Credit getCreditHistoriesFromUnderResources(String sanitizedFilesDirectoryUnderResources) throws IOException {
         Credit credit = new Credit();
 
-        File[] files = ResourceFileReader.getFilesFromDirectoryUnderResources(File.separator + directoryUnderResources);
+        File[] files = getFilesUnderResourcesDirectory(sanitizedFilesDirectoryUnderResources);
 
-        if (files != null) {
-            for (File f : files) {
-                credit.creditHistories.add(parseCreditHistory(directoryUnderResources + File.separator + f.getName()));
+        if (files != null && files.length > 0) {
+            for (File sanitizedFile : files) {
+                CreditHistory creditHistory = parseCreditHistory(sanitizedFile);
+                credit.creditHistories.add(creditHistory);
             }
         }
 
         return credit;
     }
 
-    public static CreditHistory parseCreditHistory(String fileName) throws IOException {
-        InputStream stream = ResourceFileReader.getInputStreamFromResources(fileName);
+    public static Credit getCreditHistories(String absoluteSanitizedFilesDirectory) throws IOException {
+        Credit credit = new Credit();
+
+        File[] files = getFiles(absoluteSanitizedFilesDirectory);
+
+        if (files != null && files.length > 0) {
+            for (File sanitizedFile : files) {
+                CreditHistory creditHistory = parseCreditHistory(sanitizedFile);
+                credit.creditHistories.add(creditHistory);
+            }
+        }
+
+        return credit;
+    }
+
+    static CreditHistory parseCreditHistory(String fileName) throws IOException {
+        InputStream stream = getInputStreamFromResources(fileName);
 
         if (stream == null) {
             log.error("🔴 Could not get stream for file '" + fileName + "'!");
+
+            return null;
+        }
+
+        return parseCreditHistory(stream, fileName);
+    }
+
+    static CreditHistory parseCreditHistory(File file) throws IOException {
+        if (file == null) {
+            return null;
+        }
+
+        InputStream stream = getInputStream(file);
+
+        if (stream == null) {
+            log.error("🔴 Could not get stream for file '" + file.getPath() + "'!");
+
+            return null;
+        }
+
+        return parseCreditHistory(stream, file.getName());
+    }
+
+    static CreditHistory parseCreditHistory(InputStream stream, String name) throws IOException {
+        if (stream == null) {
+            log.error("🔴 Stream is null!");
 
             return null;
         }
@@ -45,7 +88,7 @@ public class CreditHistoryParserReader {
         CreditHistoryMillenetParser parser = new CreditHistoryMillenetParser(tokens);
 
         ParseTreeWalker walker = new ParseTreeWalker();
-        CreditHistoryListener listener = new CreditHistoryListener(fileName);
+        CreditHistoryListener listener = new CreditHistoryListener(name);
         walker.walk(listener, parser.credit());
 
         return listener.getCreditHistory();

@@ -6,11 +6,29 @@
 
     <groupId>com.github.sikorka</groupId>
     <artifactId>millenet</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+
+    <name>Millenet</name>
+    <description>Z PDFów historii kredytu CHF w millenium robi CSVkę.</description>
+    <url>http://github.com/sikorka/millenet</url>
+
+    <developers>
+        <developer>
+            <name>An</name>
+            <email>an@sikorka.eu</email>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <start.class>com.github.sikorka.millenet.credit.history.CreditHistoryToCsv</start.class>
+
+        <print.on>false</print.on>
+        <subfolder></subfolder>
     </properties>
 
     <dependencies>
@@ -19,7 +37,6 @@
             <artifactId>antlr4-runtime</artifactId>
             <version>4.8-1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -52,6 +69,16 @@
             <version>3.22.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.18</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.sikorka</groupId>
+            <artifactId>tiny-log</artifactId>
+            <version>2.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -73,7 +100,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>com.github.sikorka.millenet.credit.history.CreditHistoryToCsv</mainClass>
+                    <mainClass>${start.class}</mainClass>
                 </configuration>
             </plugin>
             <plugin>

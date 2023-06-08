@@ -1,91 +1,74 @@
-What this does
-==============
+For english click [here](README_EN.md).
 
-    Given PDF files with Millenium Bank's CHF Credit Operations History 
-    When they are copy-pasted into TXT files 
-    And sanitized 
-    When CreditHistoryToCsv is run 
-    Then a CSV file is printed with payed values extracted from PDFs 
-    And the values are all fields from PDF, including Kwota transakcji in CHF 
-    And the values contain CHF odsetki, CHF odsetki przeterminowane and PLN kwota from Operation title field 
+Co robi program
+===============
 
-With this CSV file you can easier calculate how much you payed the bank - just import to excel / google docs, check if everything is fine and run your calculations. 
+Czy wiesz ile zapłaciłeś/aś bankowi Millenium za swój kredyt w CHF? Ten program generuje plik CSV z wszystkimi operacjami z Historii Operacji, z kwotami za odsetki, opłaty, spłaty.
 
-How
----
+    Mając pliki PDF z Historią Operacji Kredytu CHF w Banku Millenium 
+    Jak zapuścisz ten program
+    To będzie wygenerowany plik CSVy, zawierający wartości płatności wyekstrachowanych z PDFow
+    I te wartości to wszystkie pola z PDFa, włączając w to Kwotę transakcji w CHF
+    Oraz Odsetki w CHF, Odsetki przeterminowane w CHF i kwotę w PLN z pola Tytuł operacji
 
-The Credit History Operation read from file `example sanitized.txt`: 
+Mając takie dane możesz policzyć ile zapłaciłeś/aś bankowi - importujesz CSV do excela / google docs, sprawdzasz czy wszystko jest w porzadku i wykonujesz swoje obliczenia.
+
+Operacja staje sie wierszem w pliku CSV
+---------------------------------------
+
+Operacja z Historii Kredytu CHF z pliku `Potwierdzenie wykonania operacji_20230603_123456.pdf`:
 
     Potwierdzenie wykonania operacji
-    Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji
-    2010-07-01
-    2010-07-02
-    300,00 CHF
-    SPŁ.RATY-REGULARNA
-    KAPITAŁ ODSETKI 100.00 ODSETKI PRZETERMINOWANE 1.00 KWOTA RATY (KAPITAŁ + ODSETKI) 400.00 PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN1604.00
+    Data transakcji 2020-04-01
+    Data waluty 2020-04-02
+    Kwota transakcji 300,00 CHF
+    Typ transakcji: SPŁ.RATY-REGULARNA
+    Tytuł operacji KAPITAŁ ODSETKI 50.00 ODSETKI PRZETERMINOWANE 5.00 KWOTA RATY (KAPITAŁ + ODSETKI) 350.00 SPŁATA RATY KREDYTU
 
-becomes a CSV record:
+staje się takim wierszem w pliku CSV:
 
-    Data transakcji;Data waluty;Kwota transakcji;Waluta transakcji;Typ transakcji;Tytuł operacji;CHF kwota odsetki;CHF kwota odsetki przeterminowane;PLN kwota;Nazwa pliku;
-    2010-07-01;2010-07-02;300,00;CHF;SPŁ.RATY-REGULARNA;KAPITAŁ ODSETKI 100.00 ODSETKI PRZETERMINOWANE 1.00 KWOTA RATY (KAPITAŁ + ODSETKI) 400.00 PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN1604.00;100.00;1.00;1604.00;example sanitized.txt;
+    Data transakcji,Data waluty,Kwota transakcji,Waluta transakcji,Typ transakcji,Tytuł operacji,CHF kwota odsetki,CHF kwota odsetki przeterminowane,PLN kwota kapitał + odsetki + odsetki przeterminowane,Nazwa pliku
+    2020-04-01,2020-04-02,300.00,CHF,SPŁ.RATY-REGULARNA,KAPITAŁ ODSETKI 50.00 ODSETKI PRZETERMINOWANE 5.00 KWOTA RATY (KAPITAŁ + ODSETKI) 350.00 SPŁATA RATY KREDYTU,50.00,5.00,,Potwierdzenie wykonania operacji_20230603_123456.pdf.txt,
 
-For a set of Credit Operation History files from various years, with hundreds of operations each, you'll get a CSV combining all of their operations. 
+Dla zestawu plików Historii Operacji Kredytu CHF z różnych lat, z dziesiątkami operacji w każdym, otrzymasz plik CSV z wszystkimi operacjami z tych plików.
+
 
 Info
 ----
 
-In the Credit Operations History, what you actually payed is not in **Kwota transakcji** (Transaction amount) but in **Tytul operacji** (Operation title). Credit history is the only source of the full information (even account history does not state **Odsetki przeterminowane** explicitly). Also you can download account history for only 3 years, so that does not help, but Credit History you can download for all years. 
+W Historii Operacji Kredytu to co zapłaciłeś/aś nie jest w polu **Kwota transakcji** ale w polu **Tytul operacji**. Historia Operacji Kredytu jest jedynym źródłem kompletnej informacji (nawet Historia Konta nie zawiera podanej otwarcie wartości **Odsetki przeterminowane**). Dodatkowo Historię Konta można pobrać jedynie za ostatnie 3 lata, co nie pomaga, ale Historie Kredytu można pobrać za wszystkie lata.
 
-In Zaswiadczenie o Odsetkach document, which can be downloaded also for all years, there is amount in PLN for what is in Credit Operations History under operation title "KAPITAŁ POTR.". You can merge that information manually. Otherwise it is reasonable to use Kurs Sredni NBP to calculate that value. 
+W dokumencie Zaswiadczenie o Odsetkach, który można również ściągnąć dla wszystkich lat, jest kwota w PLN, która w Historii Kredytu jest w tytule operacji "KAPITAŁ POTR.", w kwocie w CHF. Możesz tą informację dodać manualnie lub polegać na Kursie Srednim NBP, tak jak trzeba to zrobić dla innych wartości w CHF, by policzyć tą wartość w PLN (w tej operacji są tzw. grosze). Niemniej najprawilsza ściągnięta z Twojego konta wartość, jest w Zaświadczeniu o Odsetkach. 
 
-How to
-======
 
-PDF
----
+Jak uruchomić
+=============
 
-Log in to millenium.pl, go under your credit, and download all PDF files of Credit History (not account). They are available for the whole credit history since beginning. Save them under [/pdf](src/main/resources/pdf). 
+Po pierwsze PDFy
+----------------
 
-TXT
----
+Zaloguj się do millenium.pl, otworz swoj kredyt w CHF i wygeneruj pliki PDF za wszystkie lata historii kredytu (nie konta - historii konta calej i tak nie mozna sciągnąć). Zapisz je pod [/pdf](src/main/resources/pdf).
 
-Just open each PDF, select all, copy and paste into TXT file with same name and save file with `.txt` in the end. Save them under [/sanitized](src/main/resources/sanitized). 
+Uruchom
+-------
 
-Sanitize
---------
+Upewnij się, że masz zainstalowaną Jave 8.
 
-In a text editor (like JEdit, TextMate or Notepad), open each TXT file and remove gibberish + suit it for grammar (which is not perfectly perfect), you can use some of the rules in file [sanitize.txt](./src/main/resources/sanitize.txt). Save the files after edit back in [/sanitized](src/main/resources/sanitized). You have [examples](src/main/resources/sanitized/) there. 
-
-Note: you have to check the TXT files as every operation can have weird discrepancies, like missing spaces or added new lines - that's what the bank delivers, don't kill the messenger. Any problems will be listed as errors (with line numbers) during running the program. 
-
-Run
----
+Uruchom na Macu:
 
     ./mvnw clean compile exec:java
 
-Or open [`CreditHistoryToCsv`](src/main/java/com/github/sikorka/millenet/credit/history/CreditHistoryToCsv.java) and run it. 
+Jeśli potrzebujesz więcej logów to komenda wygląda tak: 
 
-In console you will have the whole CSV. Copy and do with it what you like. 
+    ./mvnw clean compile exec:java -Dprint.on=true
 
-Good luck! 
+Uruchom na Windowsie (nie przetestowane):
 
-If any errors appear it does not mean CSV is bad. U should investigate manually - given your sanitized files are similar to what you see in [examples](src/main/resources/sanitized/), the errors will appear only for operations that are in new format, added by bank. You can send them to an@sikorka.eu and add them manually into your CSV.
+    mvnw.cmd clean compile exec:java
 
-TODO
-====
+Plik CSV bedzie zachowany jako `credit.csv`.
 
-Parsing Credit History PDF into TXT. 
+Powodzenia!
 
-Sanitizing TXT. 
+Jeśli pojawią się jakies blędy, to nie znaczy od razu, że plik CSV jest niepoprawny. Powinieneś/naś manualnie sprawdzic czy wygenerowane operacje sa takie jak powinny być. Błędy mogą się pojawić jeśli są dwie spacje tam gdzie nie powinny albo bank wprowadził nowy format lub nowy Tytuł operacji. Możesz je wysłać do autorki, po to by usprawnić ten program, a w miedzy czasie dodaj je manualnie do CSVki. 
 
-Calculating sum of CHF spent and PLN spent. 
-
-Parsing Zaswiadczenie o Odsetkach PDF. 
-
-Combining the amounts from Zaswiadczenie into CSV field with Operation Title 'KAPITAŁ POTR'. 
-
-Add Kurs Sredni NBP. 
-
-Calculate overall PLN amount based on Kurs Sredni NBP. 
-
-Saving to CSV file. 

@@ -1,6 +1,5 @@
 package com.github.sikorka.millenet.credit.history;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import lombok.Getter;
 
 import static com.github.sikorka.millenet.credit.history.CreditOperation.*;
@@ -33,19 +32,13 @@ public class CreditHistory {
     }
 
     String toCsvRowsWithHeader() {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append(CSV_HEADER).append(CSV_DELIMITER)
-//                .append(NAZWA_PLIKU_9).append(CSV_DELIMITER)
-                .append(NEWLINE);
-
-        builder.append(toCsvRows());
-
-        return builder.toString();
+        return CSV_HEADER + CSV_DELIMITER +
+                NEWLINE +
+                toCsvRows();
     }
 
     @Override
     public String toString() {
-        return fileName + NEWLINE + NEWLINE + toCsvRows();
+        return toCsvRowsWithHeader();
     }
 }

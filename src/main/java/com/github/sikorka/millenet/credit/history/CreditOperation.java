@@ -15,7 +15,7 @@ public class CreditOperation {
     public static final String OPERATION_TITLE_HEADER_5 = "Tytuł operacji";
     public static final String CHF_KWOTA_ODSETKI_HEADER_6 = "CHF kwota odsetki";
     public static final String CHF_KWOTA_ODSETKI_PRZETERMINOWANE_HEADER_7 = "CHF kwota odsetki przeterminowane";
-    public static final String PLN_KWOTA_HEADER_8 = "PLN kwota";
+    public static final String PLN_KWOTA_HEADER_8 = "PLN kwota kapitał + odsetki + odsetki przeterminowane";
     public static final String NAZWA_PLIKU_9 = "Nazwa pliku";
 
     public static final String[] COLUMN_NAMES = {TRANSACTION_DATE_HEADER_0, CURRENCY_DATE_HEADER_1, CURRENCY_AMOUNT_HEADER_2,
@@ -44,5 +44,11 @@ public class CreditOperation {
     @Override
     public String toString() {
         return toCsvRow();
+    }
+
+    public boolean isWyplataKredytu() {
+        return transactionType.contains("WYPŁATA") ||
+                transactionType.contains("WY.") ||
+                operationTitle.contains("WYPŁAT");
     }
 }

@@ -2,25 +2,26 @@ grammar CreditHistoryMillenet;
 
 /** See example input files in /resources/sanitized/. */
 
+//TODO ' ' => SPACE?
+
 credit : (operation)+ EOF;
 
 operation :
     operationStart NEWLINE
-    headingRow NEWLINE
-    transactionDate NEWLINE
-    currencyDate NEWLINE
-    currencyAmount SPACE currency NEWLINE
-    transactionType NEWLINE
-    operationTitle NEWLINE
+    transactionDateRow NEWLINE
+    currencyDateRow NEWLINE
+    currencyAmountRow SPACE currency NEWLINE
+    transactionTypeRow NEWLINE
+    operationTitleRow NEWLINE
     NEWLINE*;
 
 operationStart : Potwierdzenie_wykonania_operacji;
-headingRow : Header;
-transactionDate : DATE;
-currencyDate : DATE;
-currencyAmount : AMOUNT;
+transactionDateRow : Data_Transakcji_SPACE transactionDate;
+currencyDateRow : Data_waluty_SPACE currencyDate;
+currencyAmountRow : Kwota_Transakcji_SPACE currencyAmount;
 currency : CHF | PLN;
-transactionType :
+transactionTypeRow : Typ_transakcji_SPACE transactionType;
+transactionType:
                     Wyplata_kredytu |
                     Naliczenie_oplat |
                     Sp_raty_nieplanowana |
@@ -30,7 +31,12 @@ transactionType :
                     Sp_raty_nieregularna
                     ;
 
-operationTitle :
+transactionDate: DATE;
+currencyDate: DATE;
+currencyAmount: AMOUNT;
+
+operationTitleRow : Tytul_operacji_SPACE operationTitle;
+operationTitle:
     stopa |
     wyplata |
     oplata |
@@ -50,9 +56,9 @@ wyplata :
             WYPLATA
             ;
 
-WYPLATA:             'KAPITAŁ KWOTA WYPŁATY ' KWOTA ' TYP RACHUNKU ' DIGIT+ ' NUMER RACHUNKU DO WYPŁATY ' DIGIT+;
-WYPLATA_URUCHOMIENIE: WYPLATA ' URUCHOMIENIE';
-WYPLATA_TRANSZA:      WYPLATA ' TRANSZA';
+WYPLATA:             'KAPITAŁ KWOTA WYPŁATY ' KWOTA ' TYP RACHUNKU ' DIGIT+ SPACE? 'NUMER RACHUNKU DO WYPŁATY ' DIGIT+;
+WYPLATA_URUCHOMIENIE: WYPLATA SPACE? 'URUCHOMIENIE';
+WYPLATA_TRANSZA:      WYPLATA SPACE? 'TRANSZA';
 
 oplata :
         OPLATA_PROWIZJA |
@@ -76,8 +82,8 @@ splata_pln :
 
 pln_odsetki :                                               chf_odsetki_block                                                                                 SPACE pln_platnosc_czesciowa_block;
 pln_kapital_odsetki_przeterminowane :         Kapital_space                         chf_odsetki_przeterminowane_block                                         SPACE pln_platnosc_czesciowa_block;
-pln_kapital_odsetki :                         Kapital_space chf_odsetki_block                                         Space_kwota_raty_kapital_odsetki_space KWOTA SPACE pln_platnosc_czesciowa_block;
-pln_kapital_odsetki_odsetki_przeterminowane : Kapital_space chf_odsetki_block SPACE chf_odsetki_przeterminowane_block Space_kwota_raty_kapital_odsetki_space KWOTA SPACE pln_platnosc_czesciowa_block;
+pln_kapital_odsetki :                         Kapital_space chf_odsetki_block                                         Space_kwota_raty_kapital_odsetki_space KWOTA SPACE? pln_platnosc_czesciowa_block;
+pln_kapital_odsetki_odsetki_przeterminowane : Kapital_space chf_odsetki_block SPACE chf_odsetki_przeterminowane_block Space_kwota_raty_kapital_odsetki_space KWOTA SPACE? pln_platnosc_czesciowa_block;
 pln_kapital :
     pln_kapital_platnosc_czesciowa |
     pln_kapital_spl_dysp |
@@ -90,7 +96,7 @@ pln_kapital_dysp :               Kapital_dysp_ddn_x IDENTIFIER SPACE PLN SPACE p
 
 pln_platnosc_czesciowa_block : Platnosc_czesciowa_wal_pln pln_kwota;
 
-pln_kwota : KWOTA;
+pln_kwota : KWOTA | KWOTA_Z_PRZECINKIEM_I_KROPKA;
 
 //SPLATA CHF
 
@@ -108,8 +114,8 @@ chfy_meat :
 
 chf_odsetki :                                   chf_odsetki_block;
 chf_kapital_odsetki_przeterminowane :                                   chf_odsetki_przeterminowane_block;
-chf_kapital_odsetki_odsetki_przeterminowane :   chf_odsetki_block SPACE chf_odsetki_przeterminowane_block Space_kwota_raty_kapital_odsetki_space KWOTA;
-chf_kapital_odsetki :                           chf_odsetki_block                                         Space_kwota_raty_kapital_odsetki_space KWOTA;
+chf_kapital_odsetki_odsetki_przeterminowane :   chf_odsetki_block SPACE chf_odsetki_przeterminowane_block Space_kwota_raty_kapital_odsetki_space KWOTA SPACE?;
+chf_kapital_odsetki :                           chf_odsetki_block                                         Space_kwota_raty_kapital_odsetki_space KWOTA SPACE?;
 
 chf_kapital_splata_raty :
         Kapital_splata_raty_kredytu |
@@ -129,6 +135,7 @@ IDENTIFIER :   DIGIT+ '-' DIGIT+;
 STOPA_NUMBER : DIGIT* DOT TWODIGIT TWODIGIT DIGIT;
 
 KWOTA : DIGIT* DOT TWODIGIT;
+KWOTA_Z_PRZECINKIEM_I_KROPKA : DIGIT+ COMMA DIGIT+ DOT TWODIGIT;
 
 DATE : TWODIGIT TWODIGIT '-' TWODIGIT '-' TWODIGIT;
 AMOUNT : DIGIT+ COMMA TWODIGIT;
@@ -158,13 +165,12 @@ Odsetki_space : 'ODSETKI ';
 Kapital_space : 'KAPITAŁ ';
 
 Space_kwota_raty_kapital_odsetki_space : ' KWOTA RATY (KAPITAŁ + ODSETKI) ';
-Platnosc_czesciowa_wal_pln : 'PŁATNOŚĆ CZĘŚCIOWA - WAL/PLN PLN';
-Space_splata_raty_kredytu: ' SPŁATA RATY KREDYTU';
+Platnosc_czesciowa_wal_pln : 'PŁATNOŚĆ' SPACE? 'CZĘŚCIOWA - WAL/PLN PLN' SPACE?;
+Space_splata_raty_kredytu: SPACE? 'SPŁATA' SPACE* 'RATY' SPACE* 'KREDYTU' SPACE?;
 
-Odsetki_przeterminowane_space : Odsetki_space 'PRZETERMINOWANE ';
+Odsetki_przeterminowane_space : Odsetki_space 'PRZETERMINOWANE' SPACE+;
 
 Potwierdzenie_wykonania_operacji : 'Potwierdzenie wykonania operacji';
-Header : 'Data transakcji Data waluty Kwota transakcji Typ transakcji: Tytuł operacji';
 
 Wyplata_kredytu :       'WYPŁATA KREDYTU';
 Naliczenie_oplat :      'NALICZENIE OPŁAT';
@@ -177,5 +183,11 @@ Sp_raty_nieregularna :  'SP.RATY-NIEREGULARNA';
 Kapital_spl_dysp_x :    'KAPITAŁ Spł.dysp.x';
 Kapital_dysp_ddn_x :    'KAPITAŁ DYSP DDN X';
 
-Kapital_splata_raty_kredytu :   'KAPITAŁ SPŁATA RATY KREDYTU';
-Kapital_splata_raty_w_pln :     'KAPITAŁ Spłata raty w PLN';
+Kapital_splata_raty_kredytu :   'KAPITAŁ' SPACE? 'SPŁATA' SPACE? 'RATY' SPACE? 'KREDYTU' SPACE?;
+Kapital_splata_raty_w_pln :     'KAPITAŁ Spłata raty w PLN' SPACE?;
+
+Data_Transakcji_SPACE : 'Data transakcji ';
+Data_waluty_SPACE : 'Data waluty ';
+Kwota_Transakcji_SPACE : 'Kwota transakcji ';
+Typ_transakcji_SPACE : 'Typ transakcji: ';
+Tytul_operacji_SPACE : 'Tytuł operacji ';

@@ -37,15 +37,65 @@ public interface CreditHistoryMillenetListener extends ParseTreeListener {
 	 */
 	void exitOperationStart(CreditHistoryMillenetParser.OperationStartContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#headingRow}.
+	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#transactionDateRow}.
 	 * @param ctx the parse tree
 	 */
-	void enterHeadingRow(CreditHistoryMillenetParser.HeadingRowContext ctx);
+	void enterTransactionDateRow(CreditHistoryMillenetParser.TransactionDateRowContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#headingRow}.
+	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#transactionDateRow}.
 	 * @param ctx the parse tree
 	 */
-	void exitHeadingRow(CreditHistoryMillenetParser.HeadingRowContext ctx);
+	void exitTransactionDateRow(CreditHistoryMillenetParser.TransactionDateRowContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#currencyDateRow}.
+	 * @param ctx the parse tree
+	 */
+	void enterCurrencyDateRow(CreditHistoryMillenetParser.CurrencyDateRowContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#currencyDateRow}.
+	 * @param ctx the parse tree
+	 */
+	void exitCurrencyDateRow(CreditHistoryMillenetParser.CurrencyDateRowContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#currencyAmountRow}.
+	 * @param ctx the parse tree
+	 */
+	void enterCurrencyAmountRow(CreditHistoryMillenetParser.CurrencyAmountRowContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#currencyAmountRow}.
+	 * @param ctx the parse tree
+	 */
+	void exitCurrencyAmountRow(CreditHistoryMillenetParser.CurrencyAmountRowContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#currency}.
+	 * @param ctx the parse tree
+	 */
+	void enterCurrency(CreditHistoryMillenetParser.CurrencyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#currency}.
+	 * @param ctx the parse tree
+	 */
+	void exitCurrency(CreditHistoryMillenetParser.CurrencyContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#transactionTypeRow}.
+	 * @param ctx the parse tree
+	 */
+	void enterTransactionTypeRow(CreditHistoryMillenetParser.TransactionTypeRowContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#transactionTypeRow}.
+	 * @param ctx the parse tree
+	 */
+	void exitTransactionTypeRow(CreditHistoryMillenetParser.TransactionTypeRowContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#transactionType}.
+	 * @param ctx the parse tree
+	 */
+	void enterTransactionType(CreditHistoryMillenetParser.TransactionTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#transactionType}.
+	 * @param ctx the parse tree
+	 */
+	void exitTransactionType(CreditHistoryMillenetParser.TransactionTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#transactionDate}.
 	 * @param ctx the parse tree
@@ -77,25 +127,15 @@ public interface CreditHistoryMillenetListener extends ParseTreeListener {
 	 */
 	void exitCurrencyAmount(CreditHistoryMillenetParser.CurrencyAmountContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#currency}.
+	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#operationTitleRow}.
 	 * @param ctx the parse tree
 	 */
-	void enterCurrency(CreditHistoryMillenetParser.CurrencyContext ctx);
+	void enterOperationTitleRow(CreditHistoryMillenetParser.OperationTitleRowContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#currency}.
+	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#operationTitleRow}.
 	 * @param ctx the parse tree
 	 */
-	void exitCurrency(CreditHistoryMillenetParser.CurrencyContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#transactionType}.
-	 * @param ctx the parse tree
-	 */
-	void enterTransactionType(CreditHistoryMillenetParser.TransactionTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CreditHistoryMillenetParser#transactionType}.
-	 * @param ctx the parse tree
-	 */
-	void exitTransactionType(CreditHistoryMillenetParser.TransactionTypeContext ctx);
+	void exitOperationTitleRow(CreditHistoryMillenetParser.OperationTitleRowContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CreditHistoryMillenetParser#operationTitle}.
 	 * @param ctx the parse tree

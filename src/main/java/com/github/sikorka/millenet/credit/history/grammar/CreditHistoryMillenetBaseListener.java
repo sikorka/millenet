@@ -51,13 +51,73 @@ public class CreditHistoryMillenetBaseListener implements CreditHistoryMillenetL
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHeadingRow(CreditHistoryMillenetParser.HeadingRowContext ctx) { }
+	@Override public void enterTransactionDateRow(CreditHistoryMillenetParser.TransactionDateRowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHeadingRow(CreditHistoryMillenetParser.HeadingRowContext ctx) { }
+	@Override public void exitTransactionDateRow(CreditHistoryMillenetParser.TransactionDateRowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCurrencyDateRow(CreditHistoryMillenetParser.CurrencyDateRowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCurrencyDateRow(CreditHistoryMillenetParser.CurrencyDateRowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCurrencyAmountRow(CreditHistoryMillenetParser.CurrencyAmountRowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCurrencyAmountRow(CreditHistoryMillenetParser.CurrencyAmountRowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCurrency(CreditHistoryMillenetParser.CurrencyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCurrency(CreditHistoryMillenetParser.CurrencyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTransactionTypeRow(CreditHistoryMillenetParser.TransactionTypeRowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTransactionTypeRow(CreditHistoryMillenetParser.TransactionTypeRowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTransactionType(CreditHistoryMillenetParser.TransactionTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTransactionType(CreditHistoryMillenetParser.TransactionTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -99,25 +159,13 @@ public class CreditHistoryMillenetBaseListener implements CreditHistoryMillenetL
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCurrency(CreditHistoryMillenetParser.CurrencyContext ctx) { }
+	@Override public void enterOperationTitleRow(CreditHistoryMillenetParser.OperationTitleRowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCurrency(CreditHistoryMillenetParser.CurrencyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTransactionType(CreditHistoryMillenetParser.TransactionTypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTransactionType(CreditHistoryMillenetParser.TransactionTypeContext ctx) { }
+	@Override public void exitOperationTitleRow(CreditHistoryMillenetParser.OperationTitleRowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

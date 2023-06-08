@@ -12,10 +12,13 @@ public class CreditHistoryListener extends CreditHistoryMillenetBaseListener {
 
     private CreditOperation current;
 
-    public CreditHistoryListener(String fileName) {
-        creditHistory = new CreditHistory(fileName);
+    /**
+     * @param name can be a file name or any other name
+     * */
+    public CreditHistoryListener(String name) {
+        creditHistory = new CreditHistory(name);
 
-        log.info("Processing '" + fileName + "' ...");
+        log.info("Parsing '" + name + "' ...");
     }
 
     @Override
@@ -35,7 +38,15 @@ public class CreditHistoryListener extends CreditHistoryMillenetBaseListener {
 
     @Override
     public void enterCurrencyAmount(CreditHistoryMillenetParser.CurrencyAmountContext ctx) {
-        this.current.setCurrencyAmount(ctx.getText());
+        String kwotaTransakcji = ctx.getText(); //for example: 157,34
+
+        if (kwotaTransakcji == null) {
+            kwotaTransakcji = "";
+        } else {
+            kwotaTransakcji = kwotaTransakcji.replace(",", ".");
+        }
+
+        this.current.setCurrencyAmount(kwotaTransakcji);
     }
 
     @Override
@@ -65,7 +76,15 @@ public class CreditHistoryListener extends CreditHistoryMillenetBaseListener {
 
     @Override
     public void enterPln_kwota(CreditHistoryMillenetParser.Pln_kwotaContext ctx) {
-        this.current.setPlnKwota(ctx.getText() == null ? "" : ctx.getText());
+        String plnKwota = ctx.getText(); //for example: 1,035.96 or 974.55
+
+        if (plnKwota == null) {
+            plnKwota = "";
+        } else {
+            plnKwota = plnKwota.replace(",", "");
+        }
+
+        this.current.setPlnKwota(plnKwota);
     }
 
     @Override
@@ -75,6 +94,6 @@ public class CreditHistoryListener extends CreditHistoryMillenetBaseListener {
 
     @Override
     public void exitCredit(CreditHistoryMillenetParser.CreditContext ctx) {
-        log.info("🟢 Processing done.");
+        log.info("🟢 Parsing done.");
     }
 }
